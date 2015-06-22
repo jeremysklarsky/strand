@@ -16,7 +16,7 @@
 		_instances.splice(_instances.indexOf(instance), 1);
 	}
 
-	Polymer.Gestures.add(document, "down", function(e) {
+	document.addEventListener("mousedown", function(e) {
 		var normalized = Polymer.dom(e);
 		var instance;
 		var scope;
@@ -48,5 +48,8 @@
 		}
 	 };
 
-	 scope.AutoClosable = AutoClosable;
+	scope.AutoClosable = [
+		scope.Closable, 
+		AutoClosable
+	];
 })(window.StrandTraits = window.StrandTraits || {}); 
