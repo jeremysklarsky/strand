@@ -14,7 +14,7 @@
 	}
 
 	Rectangle.fromElement = function(element, root) {
-		if (element && element.getBoundingClientRect && (element.shadowRoot || root && root.shadowRoot)) {
+		if (element && element.getBoundingClientRect) {
 			var cr = element.getBoundingClientRect();
 			return new Rectangle(cr.left, cr.top, cr.width, cr.height);
 		} else {
@@ -78,10 +78,8 @@
 
 		toCSS : function(element) {
 			if (element && element.style) {
-				element.style.setProperty("left", this.left + "px");
-				element.style.setProperty("top", this.top + "px");
-				// element.style.setProperty("-webkit-transform", "translate3d("+this.left+"px,"+this.top+"px,0)");
-				// element.style.setProperty("-webkit-transform", "matrix(1,0,0,1,"+this.left+","+this.top+")");
+				element.style.left = this.left + "px";
+				element.style.top = this.top + "px";
 			}
 			return this;
 		},
@@ -122,4 +120,6 @@
 			return this;
 		}
 	};
+
+	scope.Rectangle = Rectangle;
 })(window.StrandLib = window.StrandLib || {}); 
