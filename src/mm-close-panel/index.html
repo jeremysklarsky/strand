@@ -1,24 +1,21 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	<script language="javascript" src="../../bower_components/webcomponentsjs/webcomponents.js"></script>
+	<script language="javascript" src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
 		<link rel="import" href="../../bower_components/polymer/polymer.html">
-		<!-- <link rel="import" href="mm-close-panel.html"> -->
-		<link rel="import" href="../mm-list/mm-list.html">
-		<link rel="import" href="../mm-list-item/mm-list-item.html">
+		<link rel="import" href="mm-close-panel.html">
 		<link rel="import" href="../mm-button/mm-button.html">
-		<link rel="import" href="../mm-dropdown/mm-dropdown.html">
-		<link rel="import" href="../mm-dropdown/mm-dropdown.html">
-		<link rel="import" href="../shared/js/measure.html">
 		<style>
 			body, 
 			html {
 				margin: 0;
 				padding: 0;
+				height: 100%;
 			}
 
 			body {
 				margin: 10px;
+				height: 200%;
 			}
 
 			#cpb2 {
@@ -28,27 +25,23 @@
 				margin-left: -51px;
 				margin-top: -15px;
 			}
+
+			.container {
+				width: 200px;
+				height: 300px;
+				/*background: #fff;*/
+			}
 		</style>
 
 	</head>
-	<body unresolved>
+	<body>
 		 
 		<mm-button id="cpb2" class="side-test">
 			<label>panel target</label>
 		</mm-button> 
 		
-		<mm-close-panel id="cp" mode="popover" offsetX="0" offsetY="0">
-
-			<mm-list>
-				<mm-list-item>Example #1: Its Time to get on up and celebrate</mm-list-item>
-				<mm-list-item>Example #2: Its Time</mm-list-item>
-				<mm-list-item>Example #3: Its Time</mm-list-item>
-				<mm-list-item>Example #4: Its Time</mm-list-item>
-				<mm-list-item>Example #5: Its Time</mm-list-item>
-				<mm-list-item>Example #6: Its Time</mm-list-item>
-				<mm-list-item>Example #7: Its Time</mm-list-item>
-			</mm-list>
-
+		<mm-close-panel id="cp" direction="e" offset="5" boundary-offset="10">
+			<div class="container"></div>
 		</mm-close-panel>
 
 		<script>
@@ -57,7 +50,7 @@
 				cpb2,
 				drag = false;
 			
-			window.addEventListener("polymer-ready", function() {
+			window.addEventListener("WebComponentsReady", function() {
 				cp = document.getElementById("cp"),
 				cpb2 = document.getElementById("cpb2"),
 				cp.target = cpb2;
@@ -75,6 +68,7 @@
 			}
 
 			function handleCpb2MouseDown(e) {
+				e.stopPropagation();
 				drag = true;
 				document.addEventListener("mouseup", handleMouseUp);
 				document.addEventListener("mousemove", handleDrag);
@@ -90,6 +84,7 @@
 				if (drag === true) {
 					cpb2.style.left = e.pageX + "px";
 					cpb2.style.top = e.pageY + "px";
+					cp.update();
 				}
 			}
 		</script>
