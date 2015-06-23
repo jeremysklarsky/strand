@@ -78,8 +78,8 @@
 
 		toCSS : function(element) {
 			if (element && element.style) {
-				element.style.left = this.left + "px";
-				element.style.top = this.top + "px";
+				element.style.left = Math.round(this.left) + "px";
+				element.style.top = Math.round(this.top) + "px";
 			}
 			return this;
 		},
