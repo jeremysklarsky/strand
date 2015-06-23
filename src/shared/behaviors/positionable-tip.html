@@ -1,0 +1,95 @@
+<link rel="import" href="positionable.html">
+<script type="text/javascript">
+	
+	(function(scope) {
+	
+	var PositionableTip = {
+
+		properties: {
+
+		},
+
+		_updatePosition: function() {
+			var winRect = this.windowMetrics,
+				panelRect = this.metrics,
+				targetRect = this.targetMetrics;
+
+			this.direction = this._originalDirection;
+			this._updateDirection(this.direction, panelRect, targetRect);	
+
+			var containerOffset = 0;
+			if(this.direction === 'n' || this.direction === 's') {
+				// containerOffset = targetRect.width / 2 - panelRect.width / 2 + this.boundaryOffset;
+				if(panelRect.left + containerOffset < winRect.left) {
+					containerOffset = winRect.left - panelRect.left;
+				} else if(panelRect.right + containerOffset > winRect.right) {
+					containerOffset = winRect.right - panelRect.right;
+				}
+				// this.containerOffset = 'left: ' + containerOffset + 'px';
+				this.$.container.style.left = containerOffset + 'px';
+
+				//window boundary flip:
+				if(panelRect.top < winRect.top || panelRect.bottom > winRect.bottom) {
+					var index = this.DIRECTIONS.indexOf(this.direction);
+					index = (index + 2) % this.DIRECTIONS.length;
+					this.direction = this.DIRECTIONS[index];
+					this._updateDirection(this.direction, panelRect, targetRect);
+				}
+			} else {
+				// containerOffset = targetRect.height / 2 - panelRect.height / 2 + this.boundaryOffset;
+				if(panelRect.top + containerOffset < winRect.top) {
+					containerOffset = winRect.top - panelRect.top;
+				} else if(panelRect.bottom + containerOffset > winRect.bottom) {
+					containerOffset = winRect.bottom - panelRect.bottom;
+				}
+				// this.containerOffset = 'top: ' + containerOffset + 'px';
+				this.$.container.style.top = containerOffset + 'px';
+
+				//window boundary flip:
+				if(panelRect.left < winRect.left || panelRect.right > winRect.right) {
+					var index = this.DIRECTIONS.indexOf(this.direction);
+					index = (index + 2) % this.DIRECTIONS.length;
+					this.direction = this.DIRECTIONS[index];
+					this._updateDirection(this.direction, panelRect, targetRect);
+				}
+			}
+
+			panelRect.toCSS(this);
+		},
+
+		_updateDirection: function(direction, panelRect, targetRect) {
+			var hCenter = targetRect.width / 2 - panelRect.width / 2;
+			var vCenter = targetRect.height / 2 - panelRect.height / 2;
+			
+			switch(direction) {
+				case 'n':
+					panelRect.top = targetRect.top - panelRect.height - this.offset;
+					panelRect.left = targetRect.left + hCenter;
+					break;
+				case 's':
+					panelRect.top = targetRect.top + targetRect.height + this.offset;
+					panelRect.left = targetRect.left + hCenter;
+					break;
+				case 'e':
+					panelRect.top = targetRect.top + vCenter;
+					panelRect.left = targetRect.left + targetRect.width + this.offset;
+					break;
+				case 'w':
+					panelRect.top = targetRect.top + vCenter;
+					panelRect.left = targetRect.left - panelRect.width - this.offset;
+					break;
+			}
+		},
+
+		DIRECTIONS: ['n', 'e', 's', 'w']
+
+
+	};
+
+	scope.PositionableTip = [
+		scope.Positionable,
+		PositionableTip
+	];
+
+})(window.StrandTraits = window.StrandTraits || {});
+</script>
