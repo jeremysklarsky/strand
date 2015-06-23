@@ -1,0 +1,101 @@
+<link rel="import" href="../js/rectangle.html">
+<link rel="import" href="windownotifier.html">
+<link rel="import" href="autoclosable.html">
+<script type="text/javascript">
+	
+	(function(scope) {
+
+	var Rectangle = StrandLib.Rectangle;
+
+	var Positionable = {
+
+		properties: {
+			target: {
+				type: Object
+			},
+			direction: {
+				type: String,
+				value: 's',
+				reflectToAttribute: true
+			},
+			auto: {
+				type: Boolean,
+				value: true
+			},
+			state: {
+				type: String,
+				value: 'closed',
+				observer: '_stateChanged'
+			},
+			offset: {
+				type: Number,
+				value: 0
+			},
+			boundaryOffset: {
+				type: Number,
+				value: 10
+			}
+		},
+
+		ready: function() {
+			this._originalDirection = this.direction;
+			this._boundUpdatePosition = this._updatePosition.bind(this);
+		},
+
+		attached: function() {
+			if (!this.target) {
+				this.target = this.parentNode;
+			}
+		},
+
+		resize: function() {
+			this.update();
+		},
+		
+		scroll: function() {
+			this.update();
+		},
+
+		update: function () {
+			if(!this.target) return;
+
+			requestAnimationFrame(this._boundUpdatePosition);
+		},
+
+		_updatePosition: function() {},
+
+		get metrics() {
+			return Rectangle.fromElement(this);
+		},
+
+		get targetMetrics() {
+			return this.target && Rectangle.fromElement(this.target, this);
+		},
+
+		get windowMetrics() {
+			return new Rectangle(0, 0, document.documentElement.clientWidth, document.documentElement.clientHeight);
+		},
+
+		_stateChanged: function(newState, oldState) {
+			if (newState === this.STATE_OPENED) {
+				this.update();
+				this.style.clip = "auto";
+			} else {
+				this.style.clip = "rect(0,0,0,0)";
+			}
+		},
+
+		_computeContainerStyle: function(boundaryOffset) {
+			return 'margin: ' + boundaryOffset + 'px';
+		}
+
+	};
+
+	scope.Positionable = [
+		scope.AutoClosable,
+		scope.WindowNotifier,
+		Positionable
+	];
+
+})(window.StrandTraits = window.StrandTraits || {});
+</script>
