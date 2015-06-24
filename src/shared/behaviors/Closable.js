@@ -53,13 +53,6 @@
 	 		return state === this.STATE_CLOSED;
 	 	},
 
-		_closeFilter: function(instance, e, original) {
-			if(e.path.indexOf(this) > -1){
-				original.stopImmediatePropagation();
-			} else {
-				instance.close();
-			}
-		}
 	 };
 
 	 scope.Closable = Closable;

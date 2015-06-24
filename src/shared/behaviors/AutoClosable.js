@@ -31,6 +31,10 @@
 
 	 var AutoClosable = {
 
+	 	properties: {
+	 		auto: Boolean
+	 	},
+
 	 	attached: function() {
 	 		_addInstance(this);
 	 	},
@@ -40,6 +44,7 @@
 	 	},
 
 		_closeFilter: function(instance, e, original) {
+			if(!this.auto) return;
 			if(e.path.indexOf(this) > -1){
 				original.stopImmediatePropagation();
 			} else {
