@@ -6,7 +6,15 @@
 	var PositionableTip = {
 
 		properties: {
+			direction: {
+				type: String,
+				value: 's',
+				reflectToAttribute: true
+			}
+		},
 
+		ready: function() {
+			this._originalDirection = this.direction;
 		},
 
 		_updatePosition: function() {

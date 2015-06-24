@@ -13,11 +13,6 @@
 			target: {
 				type: Object
 			},
-			direction: {
-				type: String,
-				value: 's',
-				reflectToAttribute: true
-			},
 			auto: {
 				type: Boolean,
 				value: true
@@ -38,7 +33,6 @@
 		},
 
 		ready: function() {
-			this._originalDirection = this.direction;
 			this._boundUpdatePosition = this._updatePosition.bind(this);
 		},
 
