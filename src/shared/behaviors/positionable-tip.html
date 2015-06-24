@@ -25,18 +25,12 @@
 			this.direction = this._originalDirection;
 			this._updateDirection(this.direction, panelRect, targetRect);	
 
-			var containerOffset = 0;
+			var offset = 0;
 			if(this.direction === 'n' || this.direction === 's') {
-				if(panelRect.left < winRect.left) {
-					containerOffset = winRect.left - panelRect.left;
-				} else if(panelRect.right > winRect.right) {
-					containerOffset = winRect.right - panelRect.right;
-				}
 
-				var maxOffset = panelRect.width / 2 - targetRect.width / 2 - this.boundaryOffset;
-				containerOffset = Math.min(Math.max(containerOffset, -maxOffset), maxOffset);
+				offset = this._updateOffset(panelRect.left, panelRect.right, winRect.left, winRect.right, panelRect.width, targetRect.width);
 				// this.containerOffset = 'left: ' + containerOffset + 'px';
-				this.$.container.style.left = containerOffset + 'px';
+				this.$.container.style.left = offset + 'px';
 
 				//window boundary flip:
 				if(panelRect.top < winRect.top || panelRect.bottom > winRect.bottom) {
@@ -46,16 +40,10 @@
 					this._updateDirection(this.direction, panelRect, targetRect);
 				}
 			} else {
-				if(panelRect.top < winRect.top) {
-					containerOffset = winRect.top - panelRect.top;
-				} else if(panelRect.bottom > winRect.bottom) {
-					containerOffset = winRect.bottom - panelRect.bottom;
-				}
-
-				var maxOffset = panelRect.height / 2 - targetRect.height / 2 - this.boundaryOffset;
-				containerOffset = Math.min(Math.max(containerOffset, -maxOffset), maxOffset);
+				
+				offset = this._updateOffset(panelRect.top, panelRect.bottom, winRect.top, winRect.bottom, panelRect.height, targetRect.height);
 				// this.containerOffset = 'top: ' + containerOffset + 'px';
-				this.$.container.style.top = containerOffset + 'px';
+				this.$.container.style.top = offset + 'px';
 
 				//window boundary flip:
 				if(panelRect.left < winRect.left || panelRect.right > winRect.right) {
@@ -67,6 +55,21 @@
 			}
 
 			panelRect.toCSS(this);
+		},
+
+		_updateOffset: function(panelA, panelB, boundaryA, boundaryB, panelSize, targetSize) {
+			var offset = 0;
+			var maxOffset = panelSize / 2 - targetSize / 2 - this.boundaryOffset;
+
+			if(panelA < boundaryA) {
+				offset = boundaryA - panelA;
+			} else if(panelB > boundaryB) {
+				offset = boundaryB - panelB;
+			}
+
+			offset = Math.min(Math.max(offset, -maxOffset), maxOffset);
+
+			return offset;
 		},
 
 		_updateDirection: function(direction, panelRect, targetRect) {
