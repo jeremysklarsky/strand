@@ -1,7 +1,7 @@
 <link rel="import" href="positionable.html">
 <script type="text/javascript">
 	
-	(function(scope) {
+(function(scope) {
 	
 	var PositionableTip = {
 
@@ -20,44 +20,46 @@
 		_updatePosition: function() {
 			var winRect = this.windowMetrics,
 				panelRect = this.metrics,
-				targetRect = this.targetMetrics;
+				targetRect = this.targetMetrics,
+				offset = 0;
 
 			this.direction = this._originalDirection;
 			this._updateDirection(this.direction, panelRect, targetRect);	
 
-			var offset = 0;
 			if(this.direction === 'n' || this.direction === 's') {
 
-				offset = this._updateOffset(panelRect.left, panelRect.right, winRect.left, winRect.right, panelRect.width, targetRect.width);
+				offset = this._getOffset(panelRect.left, panelRect.right, winRect.left, winRect.right, panelRect.width, targetRect.width);
 				// this.containerOffset = 'left: ' + containerOffset + 'px';
 				this.$.container.style.left = offset + 'px';
 
 				//window boundary flip:
 				if(panelRect.top < winRect.top || panelRect.bottom > winRect.bottom) {
-					var index = this.DIRECTIONS.indexOf(this.direction);
-					index = (index + 2) % this.DIRECTIONS.length;
-					this.direction = this.DIRECTIONS[index];
+					this.direction = this._flipDirection(this.direction);
 					this._updateDirection(this.direction, panelRect, targetRect);
 				}
 			} else {
 				
-				offset = this._updateOffset(panelRect.top, panelRect.bottom, winRect.top, winRect.bottom, panelRect.height, targetRect.height);
+				offset = this._getOffset(panelRect.top, panelRect.bottom, winRect.top, winRect.bottom, panelRect.height, targetRect.height);
 				// this.containerOffset = 'top: ' + containerOffset + 'px';
 				this.$.container.style.top = offset + 'px';
 
 				//window boundary flip:
 				if(panelRect.left < winRect.left || panelRect.right > winRect.right) {
-					var index = this.DIRECTIONS.indexOf(this.direction);
-					index = (index + 2) % this.DIRECTIONS.length;
-					this.direction = this.DIRECTIONS[index];
+					this.direction = this._flipDirection(this.direction);
 					this._updateDirection(this.direction, panelRect, targetRect);
 				}
 			}
-
 			panelRect.toCSS(this);
+			// this.style.transform = 'translate3d(' + panelRect.x + 'px, ' + panelRect.y + 'px, 0)';
 		},
 
-		_updateOffset: function(panelA, panelB, boundaryA, boundaryB, panelSize, targetSize) {
+		_flipDirection: function(direction) {
+			var index = this.DIRECTIONS.indexOf(direction);
+			index = (index + 2) % this.DIRECTIONS.length;
+			return this.DIRECTIONS[index];
+		},
+
+		_getOffset: function(panelA, panelB, boundaryA, boundaryB, panelSize, targetSize) {
 			var offset = 0;
 			var maxOffset = panelSize / 2 - targetSize / 2 - this.boundaryOffset;
 
