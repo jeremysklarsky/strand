@@ -3,7 +3,7 @@
 <link rel="import" href="autoclosable.html">
 <script type="text/javascript">
 	
-	(function(scope) {
+(function(scope) {
 
 	var Rectangle = StrandLib.Rectangle;
 
@@ -28,10 +28,6 @@
 			}
 		},
 
-		ready: function() {
-			this._boundUpdatePosition = this._updatePosition.bind(this);
-		},
-
 		attached: function() {
 			if (!this.target) {
 				this.target = this.parentNode;
@@ -49,7 +45,7 @@
 		update: function () {
 			if(!this.target) return;
 
-			requestAnimationFrame(this._boundUpdatePosition);
+			this._updatePosition();
 		},
 
 		_updatePosition: function() {},
