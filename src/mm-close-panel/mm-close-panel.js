@@ -7,7 +7,7 @@
 (function(scope) {
 
 
-	scope.Overlay = Polymer({
+	scope.ClosePanel = Polymer({
 		is: 'mm-close-panel',
 
 		behaviors: [
