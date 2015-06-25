@@ -86,24 +86,25 @@
 
 
 #arrow {
+	position: relative;
 	//Tip Color:
 	border-color: $color-F0;
 	
 	&:after, 
 	&:before {
+		position: absolute;
 		right: auto;
 		bottom: auto;
 		border: solid transparent;
 		content: " ";
 		height: 0;
 		width: 0;
-		position: absolute;
 		pointer-events: none;
 	}
 }
 
 :host([direction="n"]) #arrow {
-	margin-bottom: 10px !important;
+	padding-bottom: 10px !important;
 	
 	&:after, 
 	&:before {
@@ -127,7 +128,7 @@
 }
 
 :host([direction="s"]) #arrow {
-	margin-top: 10px !important;
+	padding-top: 10px !important;
 
 	&:after, 
 	&:before {
@@ -151,7 +152,7 @@
 }
 
 :host([direction="e"]) #arrow {
-	margin-left: 10px !important;
+	padding-left: 10px !important;
 
 	&:after, 
 	&:before {
@@ -177,7 +178,7 @@
 }
 
 :host([direction="w"]) #arrow {
-	margin-right: 10px !important;
+	padding-right: 10px !important;
 	
 	&:after, 
 	&:before {
