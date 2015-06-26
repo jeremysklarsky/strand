@@ -18,16 +18,6 @@
 				height: 200%;
 			}
 
-			#test {
-				position: relative;
-				width: 500px;
-				height: 500px;
-				/*top: 100px;*/
-				/*left: 100px;*/
-				overflow: hidden;
-				transform: translate3d(100px, 100px, 0);
-			}
-
 			#cpb2 {
 				position: absolute;
 				top: 50%;
@@ -45,17 +35,14 @@
 
 	</head>
 	<body>
-		<div id="test">
+		 
 		<mm-button id="cpb2" class="side-test">
 			<label>panel target</label>
-		</mm-button>
+		</mm-button> 
+		
 		<mm-close-panel id="cp" direction="e" offset="5" boundary-offset="10">
-			<template>
-				<div class="container"></div>
-			</template>
+			<div class="container"></div>
 		</mm-close-panel>
-
-		</div>
 
 		<script>
 			var cp,
@@ -94,11 +81,9 @@
 			}
 
 			function handleDrag(e) {
-				e.stopImmediatePropagation();
 				if (drag === true) {
-					cpb2.style.left = e.clientX + "px";
-					cpb2.style.top = e.clientY + "px";
-					// cpb2.style.transform = 'translate3d(' + e.pageX + 'px, ' + e.pageY + 'px, 0)';
+					cpb2.style.left = e.pageX + "px";
+					cpb2.style.top = e.pageY + "px";
 					cp.update();
 				}
 			}

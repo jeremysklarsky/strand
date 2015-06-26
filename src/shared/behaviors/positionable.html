@@ -6,14 +6,12 @@
 (function(scope) {
 
 	var Rectangle = StrandLib.Rectangle;
-	var _overlay;
 
 	var Positionable = {
 
 		properties: {
 			target: {
-				type: Object,
-				observer: '_targetChanged'
+				type: Object
 			},
 			state: {
 				type: String,
@@ -30,46 +28,34 @@
 			}
 		},
 
-		ready: function() {
-			this.template = Polymer.dom(this).querySelector('template');
-		},
-
 		attached: function() {
-
-			if(!_overlay) {
-				_overlay = new this.constructor();
-				_overlay.offset = this.offset;
-				_overlay.boundaryOffset = this.boundaryOffset;
-				document.body.appendChild(_overlay);
-			}
-
-			if(this.template) {
-				Polymer.dom(_overlay).appendChild(this.template.content);
+			if (!this.target) {
+				this.target = this.parentNode;
 			}
 		},
 
 		resize: function() {
-			_overlay.update();
+			this.update();
 		},
 		
 		scroll: function() {
-			_overlay.update();
+			this.update();
 		},
 
 		update: function () {
 			if(!this.target) return;
 
-			_overlay._updatePosition();
+			this._updatePosition();
 		},
 
 		_updatePosition: function() {},
 
 		get metrics() {
-			return Rectangle.fromElement(_overlay);
+			return Rectangle.fromElement(this);
 		},
 
 		get targetMetrics() {
-			return this.target && Rectangle.fromElement(this.target);
+			return this.target && Rectangle.fromElement(this.target, this);
 		},
 
 		get windowMetrics() {
@@ -77,18 +63,12 @@
 		},
 
 		_stateChanged: function(newState, oldState) {
-			if(!_overlay) return;
 			if (newState === this.STATE_OPENED) {
-				// Polymer.dom(_overlay).appendChild(this.getContentChildren());
-				_overlay.update();
-				_overlay.style.clip = "auto";
+				this.update();
+				this.style.clip = "auto";
 			} else {
-				_overlay.style.clip = "rect(0,0,0,0)";
+				this.style.clip = "rect(0,0,0,0)";
 			}
-		},
-
-		_targetChanged: function(target) {
-			_overlay.target = target;
 		},
 
 		_computeContainerStyle: function(boundaryOffset) {
