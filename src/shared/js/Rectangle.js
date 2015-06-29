@@ -13,7 +13,7 @@
 		this.height = height;
 	}
 
-	Rectangle.fromElement = function(element, root) {
+	Rectangle.fromElement = function(element) {
 		if (element && element.getBoundingClientRect) {
 			var cr = element.getBoundingClientRect();
 			return new Rectangle(cr.left, cr.top, cr.width, cr.height);
