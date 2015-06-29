@@ -10,6 +10,10 @@
 				type: String,
 				value: 's',
 				reflectToAttribute: true
+			},
+			_tipSize: {
+				type: Number,
+				value: 15
 			}
 		},
 
@@ -65,11 +69,11 @@
 
 		_getOffset: function(panelA, panelB, boundaryA, boundaryB, panelSize, targetSize) {
 			var offset = 0;
-			var maxOffset = panelSize / 2 - targetSize / 2 - this.boundaryOffset;
+			var maxOffset = (panelSize - this.boundaryOffset * 2) / 2 - this._tipSize;
 
-			if(panelA < boundaryA) {
+			if(panelA + offset < boundaryA) {
 				offset = boundaryA - panelA;
-			} else if(panelB > boundaryB) {
+			} else if(panelB + offset > boundaryB) {
 				offset = boundaryB - panelB;
 			}
 
