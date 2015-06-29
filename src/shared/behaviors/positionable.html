@@ -1,6 +1,7 @@
 <link rel="import" href="../js/rectangle.html">
 <link rel="import" href="windownotifier.html">
 <link rel="import" href="autoclosable.html">
+<link rel="import" href="stylable.html">
 <script type="text/javascript">
 	
 (function(scope) {
@@ -25,12 +26,10 @@
 			boundaryOffset: {
 				type: Number,
 				value: 10
-			}
-		},
-
-		attached: function() {
-			if (!this.target) {
-				this.target = this.parentNode;
+			},
+			_containerStyle: {
+				type: String,
+				computed: '_computeContainerStyle(boundaryOffset)'
 			}
 		},
 
@@ -72,14 +71,17 @@
 		},
 
 		_computeContainerStyle: function(boundaryOffset) {
-			return 'padding: ' + boundaryOffset + 'px';
+			return this.styleBlock({
+				padding: boundaryOffset + 'px'
+			});
 		}
 
 	};
 
 	scope.Positionable = [
-		scope.AutoClosable,
-		scope.WindowNotifier,
+		StrandTraits.Stylable,
+		StrandTraits.AutoClosable,
+		StrandTraits.WindowNotifier,
 		Positionable
 	];
 
