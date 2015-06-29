@@ -49,6 +49,10 @@
 					this._updateDirection(this.direction, panelRect, targetRect);
 				}
 			}
+
+			panelRect.left -= this.targetMetrics.left - this.target.offsetLeft;
+			panelRect.top -= this.targetMetrics.top - this.target.offsetTop;
+
 			panelRect.toCSS(this);
 			// this.style.transform = 'translate3d(' + panelRect.x + 'px, ' + panelRect.y + 'px, 0)';
 		},

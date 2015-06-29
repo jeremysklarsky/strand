@@ -31,18 +31,27 @@
 				height: 300px;
 				/*background: #fff;*/
 			}
+
+			.test {
+				transform: translate(100px, 100px);
+			}
 		</style>
 
 	</head>
 	<body>
-		 
-		<mm-button id="cpb2" class="side-test">
+		<div class="test">
+		<mm-button id="cpb2">
 			<label>panel target</label>
 		</mm-button> 
 		
 		<mm-close-panel id="cp" direction="e" offset="5" boundary-offset="10">
-			<div class="container"></div>
+			<div class="container">
+				<mm-button>
+					<label>Test</label>
+				</mm-button> 
+			</div>
 		</mm-close-panel>
+		</div>
 
 		<script>
 			var cp,
