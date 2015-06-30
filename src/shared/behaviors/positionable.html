@@ -32,6 +32,12 @@
 			}
 		},
 
+		ready: function() {
+			if(!this.toggleTrigger) {
+				this.toggleTrigger = this.target;
+			}
+		},
+
 		resize: function() {
 			this.update();
 		},
