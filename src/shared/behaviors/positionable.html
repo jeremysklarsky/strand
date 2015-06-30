@@ -12,7 +12,8 @@
 
 		properties: {
 			target: {
-				type: Object
+				type: Object,
+				observer: '_targetChanged'
 			},
 			state: {
 				type: String,
@@ -56,6 +57,12 @@
 
 		get windowMetrics() {
 			return new Rectangle(0, 0, document.documentElement.clientWidth, document.documentElement.clientHeight);
+		},
+
+		_targetChanged: function(target, oldTarget) {
+			if(typeof target === 'string') {
+				this.target = document.querySelector(target);
+			}
 		},
 
 		_stateChanged: function(newState, oldState) {
