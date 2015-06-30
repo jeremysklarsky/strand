@@ -63,7 +63,8 @@
 		},
 
 		get windowMetrics() {
-			return new Rectangle(0, 0, document.documentElement.clientWidth, document.documentElement.clientHeight);
+			var doc = document.documentElement;
+			return new Rectangle(0, 0, doc.clientWidth, doc.clientHeight);
 		},
 
 		_targetChanged: function(target, oldTarget) {
