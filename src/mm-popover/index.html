@@ -88,41 +88,35 @@
 			}
 
 			#cpb {
-				position: relative;
+				position: absolute;
 			}
 
-			mm-popover[unresolved],
-			mm-button[unresolved] {
-				display: none;
-			}
-
-			mm-popover {}
 		</style>
 </head>
 <body>
 
-	<mm-button id="cpb" unresolved>
-		<label>open popover default (draggable)</label>
+	<mm-button id="cpb1">
+		<label>open popover</label>
 	</mm-button>
-	<mm-popover id="popover" target="#cpb" unresolved>
+	<mm-popover target="#cpb1" id="popover1">
 		<div class="body">
 			<mm-input></mm-input>
 		</div>
 		<mm-footer>
-			<mm-action id="closeLink" underline>
+			<mm-action id="closeLink1" underline>
 				<label>Close</label>
 			</mm-action>
-			<mm-button id="applyBtn">
+			<mm-button id="applyBtn1">
 				<label>Apply</label>
 			</mm-button>
 		</mm-footer>
 	</mm-popover>
 
-<!-- 
-	<mm-button id="cpb" unresolved>
+
+	<mm-button id="cpb">
 		<label>open popover multiselect (draggable)</label>
 	</mm-button> 
-	<mm-popover id="popover" target="#cpb" mode="multiselect" valign="center" align="right" unresolved>
+	<mm-popover id="popover" target="#cpb" direction="s">
 		<mm-input search="true" layout="dropdown"></mm-input> 
 		<div class="body">
 			<mm-checkbox>
@@ -150,25 +144,22 @@
 			</mm-button>
 		</mm-footer>
 	</mm-popover>
-  -->
+ 
 	<script>
 		var popover,
 			closeLink,
 			applyBtn,
-			drag = false,
-			btnStyle,
-			btnWidth,
-			btnHeight;
+			cpb,
+			offsetTop,
+			offsetLeft,
+			drag = false;
 
-		window.addEventListener("polymer-ready", function() {
-			console.log("polymer-ready");
+		window.addEventListener("WebComponentsReady", function() {
 			popover = document.getElementById("popover");
 			closeLink = document.getElementById("closeLink");
 			applyBtn = document.getElementById("applyBtn");
-
-			btnStyle = window.getComputedStyle(cpb, null);
-			btnWidth = parseInt(btnStyle.getPropertyValue("width").split("px"));
-			btnHeight = parseInt(btnStyle.getPropertyValue("height").split("px"));
+			cpb = document.getElementById("cpb");
+			// popover.target = cpb;
 
 			document.addEventListener("mousemove", dragHandler);
 			cpb.addEventListener("click", cpbClickHandler);
@@ -180,11 +171,13 @@
 		});
 
 		function cpbClickHandler(e) {
-			popover.toggle();
+			// popover.toggle();
 		}
 
 		function dragStart(e) {
 			drag = true;
+			offsetLeft = e.pageX - cpb.offsetLeft;
+			offsetTop = e.pageY - cpb.offsetTop;
 		}
 
 		function dragStop(e) {
@@ -193,8 +186,10 @@
 
 		function dragHandler(e) {
 			if (drag) {
-				var left = e.pageX - btnWidth/2,
-					top = e.pageY - btnHeight/2;
+				e.preventDefault();
+
+				var left = e.pageX - offsetLeft,
+					top = e.pageY - offsetTop;
 
 				// console.log("e.pageX: " + e.pageX);
 				// console.log("e.pageY: " + e.pageY);
@@ -202,16 +197,19 @@
 				// console.log("top: " + e.pageY);
 				cpb.style.setProperty("left", left +"px");
 				cpb.style.setProperty("top", top +"px");
+				popover.update();
 			}
 		}
 
 		function closeHandler(e) {
 			e.preventDefault();
+			popover.close();
 			console.log("closeHandler");
 			console.log(e);
 		}
 
 		function applyHandler(e) {
+			popover.close();
 			console.log("applyHandler");
 			console.log(e);
 		}
