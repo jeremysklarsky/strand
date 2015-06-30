@@ -31,21 +31,24 @@
 
 	 var AutoClosable = {
 
-	 	properties: {
-	 		auto: Boolean
-	 	},
+		properties: {
+			auto: {
+				type: Boolean,
+				value: true
+			}
+		},
 
-	 	attached: function() {
-	 		_addInstance(this);
-	 	},
+		attached: function() {
+			_addInstance(this);
+		},
 
-	 	detached: function() {
-	 		_removeInstance(this);
-	 	},
+		detached: function() {
+			_removeInstance(this);
+		},
 
 		_closeFilter: function(instance, e, original) {
 			if(!this.auto) return;
-			if(e.path.indexOf(this) > -1){
+			if(e.path.indexOf(instance) > -1 || e.path.indexOf(instance.target) > -1){
 				original.stopImmediatePropagation();
 			} else {
 				instance.close();
