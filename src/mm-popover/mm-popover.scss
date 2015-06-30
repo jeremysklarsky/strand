@@ -39,28 +39,29 @@
 	box-shadow: 0px 6px 12px 0px rgba(0, 0, 0, 0.18);
 }
 
+$arrow-size: 10px;
 :host([direction="n"]) {
-	padding-bottom: 10px !important;
+	padding-bottom: $arrow-size !important;
 	
-	@include arrow(bottom, 10px, $color-F0, $color-A8);
+	@include arrow(bottom, $arrow-size, $color-F0, $color-A8);
 
 	&.hasFooter {
 		//Footer arrow color:
-		@include arrow(bottom, 10px, $color-A12, $color-A8);
+		@include arrow(bottom, $arrow-size, $color-A12, $color-A8);
 	}
 }
 
 :host([direction="s"]) {
-	padding-top: 10px !important;
-	@include arrow(top, 10px, $color-F0, $color-A8);
+	padding-top: $arrow-size !important;
+	@include arrow(top, $arrow-size, $color-F0, $color-A8);
 }
 
 :host([direction="e"]) {
-	padding-left: 10px !important;
-	@include arrow(left, 10px, $color-F0, $color-A8);
+	padding-left: $arrow-size !important;
+	@include arrow(left, $arrow-size, $color-F0, $color-A8);
 }
 
 :host([direction="w"]) {
-	padding-right: 10px !important;
-	@include arrow(right, 10px, $color-F0, $color-A8);
+	padding-right: $arrow-size !important;
+	@include arrow(right, $arrow-size, $color-F0, $color-A8);
 }
