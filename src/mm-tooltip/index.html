@@ -88,31 +88,25 @@
 				position: relative;
 			}
 
-			mm-tooltip[unresolved],
-			mm-icon[unresolved] {
-				display: none;
-			}
-
-			/* testing some custom content styling for the tooltip */
-			.tip-msg {
-				color: #ff0000;
-				font-size: 14px;
-			}
-
-			.special-msg a {
-				/* it's shitty but you have to do this with an !important */
-				/*color: #00ff00 !important;*/
-			}
-
 		</style>
   </head>
   <body>
 
-	<div class="col c1">
+	<div class="col c1" style="margin:100px;">
 		<p>
 			<span class="bold">Tooltip:</span> Message Layout Default
 			<mm-tooltip>
-				<!-- must use a template to populate the tooltip -->
+				<mm-icon type="info" width="14" height="14" primary-color="#666666"></mm-icon>
+				<!-- <div class="tip"> -->
+				<label>I Love to eat chicken! It's so damn delicious.</label>
+				<!-- </div> -->
+			</mm-tooltip>
+		</p>
+
+		<!--
+		<p>
+			<span class="bold">Tooltip:</span> Message Layout Default
+			<mm-tooltip>
 				<mm-icon type="info" width="14" height="14" primaryColor="#666666"></mm-icon>
 				<template>
 					<label>I Love to eat chicken! It's so damn delicious.</label>
@@ -140,7 +134,9 @@
 			</mm-tooltip>
 		</p>
 		<hr/>
+		-->
 	</div>
+	<!-- 
 	<div class="vr"></div>
 	<div class="col c1">
 		<p>
@@ -174,5 +170,6 @@
 		</p>
 		<hr/>
 	</div>
+	 -->
   </body>
 </html>

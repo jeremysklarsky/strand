@@ -1,4 +1,6 @@
-(function() {
+(function(scope) {
+	
+	/*
 	var _instances = [],
 		_currentInstance = null,
 		_previousInstance = null,
@@ -59,72 +61,112 @@
 			_currentInstance.close();
 		}
 	}
+	*/
 
-	Polymer('mm-tooltip', {
-		ver:"<<version>>",
-		STATE_OPENED: "opened",
-		STATE_CLOSED: "closed",
-		publish: {
-			model: null,
-			valign: { value: "top", reflect: true },
-			auto: { value: true, refelct: true },
-			align: "center",
-			state:'closed',
-			tipWidth: null // if it's not set explicitly, assume that it should just be the width of it's content
-		},
+	scope.Tooltip = Polymer({
+		is: 'mm-tooltip',
 
-		attached: function() {
-			_addInstance(this);
-		},
+		behaviors: [
 
-		detached: function() {
-			_removeInstance(this);
+		],
+
+		properties: {
+			// model: null,
+			// valign: { value: "top", reflect: true },
+			auto: { 
+				type: Boolean,
+				value: true, 
+				refelctToAttribute: true 
+			},
+			// align: "center",
+			// state:'closed',
+			tipWidth: {
+				type: Number,
+				value: false, // if not set, assume it should be the width of it's content
+				refelctToAttribute: true
+			},
+			target: {
+				value: Object,
+				value: function() { return this.$.target; }
+			},
+			scope: {
+				type: Object,
+				value: function() { return this; }
+			},
+			state: {
+				type: String,
+				value: "closed"
+			},
+			direction: {
+				type: String,
+				value: "n"
+			},
+			offset: {
+				type: Number,
+				value: 0
+			}
 		},
+		
+		// STATE_OPENED: "opened",
+		// STATE_CLOSED: "closed",
+		
+		// attached: function() {
+		// 	_addInstance(this);
+		// },
+
+		// detached: function() {
+		// 	_removeInstance(this);
+		// },
 
 		ready: function(){
-			//
+			// console.log("this.scope: ", this.scope);
 		},
 
 		open: function(e) {
-			this.configurePanel();
-			this.state = this.STATE_OPENED;
+			// this.configurePanel();
+			// this.state = this.STATE_OPENED;
+			this.state = "opened";
 		},
 
 		close: function(e) {
-			this.state = this.STATE_CLOSED;
+			// this.state = this.STATE_CLOSED;
+			this.state = "closed";
 		},
 
 		overHandler: function(e) {
+			// console.log("overHandler: ", e);
 			this.open();
 		},
 
 		outHandler: function(e) {
+			// console.log("outHandler: ", e);
 			if(this.auto) {
 				this.close();
 			}
 		},
 
-		stateChanged: function() {
-			if (this.state === this.STATE_OPENED) {
-				_showClosePanel(this);
-			} else {
-				_hideClosePanel(this);
-			}
-		},
+		// stateChanged: function() {
+		// 	if (this.state === this.STATE_OPENED) {
+		// 		_showClosePanel(this);
+		// 	} else {
+		// 		_hideClosePanel(this);
+		// 	}
+		// },
 
-		configurePanel: function() {
-			if(_currentInstance !== this) {
-				_setCurrentInstance(this);
+		// configurePanel: function() {
+		// 	if(_currentInstance !== this) {
+		// 		_setCurrentInstance(this);
 
-				var msgContent = this.querySelector('template').createInstance(this);
-				_closePanel.style.width = this.tipWidth ? this.tipWidth + "px" : "auto";
-				_closePanel.valign = this.valign;
-				_closePanel.align = this.align;
-				_closePanel.innerHTML = null;
-				_closePanel.appendChild(msgContent);
-				_closePanel.scope = this;
-				_closePanel.target = this.$.tipTarget;
-			}
-		}
+		// 		var msgContent = this.querySelector('template').createInstance(this);
+		// 		_closePanel.style.width = this.tipWidth ? this.tipWidth + "px" : "auto";
+		// 		_closePanel.valign = this.valign;
+		// 		_closePanel.align = this.align;
+		// 		_closePanel.innerHTML = null;
+		// 		_closePanel.appendChild(msgContent);
+		// 		_closePanel.scope = this;
+		// 		_closePanel.target = this.$.tipTarget;
+		// 	}
+		// }
 	});
-})();
+
+})(window.Strand = window.Strand || {});

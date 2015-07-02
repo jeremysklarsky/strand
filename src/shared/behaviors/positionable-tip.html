@@ -60,8 +60,12 @@
 				}
 			}
 
-			panelRect.left -= this.targetMetrics.left - this.target.offsetLeft;
-			panelRect.top -= this.targetMetrics.top - this.target.offsetTop;
+			// offset relative to document (?)
+			// console.log(this.scope);
+			if(this.scope === document){
+				panelRect.left -= this.targetMetrics.left - this.target.offsetLeft;
+				panelRect.top -= this.targetMetrics.top - this.target.offsetTop;	
+			}
 
 			panelRect.toCSS(this);
 			// this.style.transform = 'translate3d(' + panelRect.x + 'px, ' + panelRect.y + 'px, 0)';
