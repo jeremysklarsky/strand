@@ -1,20 +1,23 @@
 <link rel="import" href="../js/rectangle.html">
 <link rel="import" href="windownotifier.html">
-<link rel="import" href="autoclosable.html">
+<!-- <link rel="import" href="autoclosable.html">
 <link rel="import" href="autotogglable.html">
-<link rel="import" href="stackable.html">
+<link rel="import" href="stackable.html"> -->
 <script type="text/javascript">
-	
 (function(scope) {
-
+	
 	var Rectangle = StrandLib.Rectangle;
 
-	var Positionable = {
+	Positionable = {
 
 		properties: {
 			target: {
 				type: Object,
 				observer: '_targetChanged'
+			},
+			scope: {
+				type: Object,
+				value: function() { return document; } // assumes the scope will be the document if not specified
 			},
 			state: {
 				type: String,
@@ -69,7 +72,8 @@
 
 		_targetChanged: function(target, oldTarget) {
 			if(typeof target === 'string') {
-				this.target = document.querySelector(target);
+				// this.target = document.querySelector(target);
+				this.target = Polymer.dom(this.scope).querySelector(target);
 			}
 		},
 
@@ -89,10 +93,10 @@
 	};
 
 	scope.Positionable = [
-		StrandTraits.AutoClosable,
-		StrandTraits.AutoTogglable,
+		// StrandTraits.AutoClosable,
+		// StrandTraits.AutoTogglable,
 		StrandTraits.WindowNotifier,
-		StrandTraits.Stackable,
+		// StrandTraits.Stackable,
 		Positionable
 	];
 

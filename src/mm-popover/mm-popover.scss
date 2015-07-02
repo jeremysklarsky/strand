@@ -45,6 +45,7 @@ $arrow-size: 10px;
 	
 	@include arrow(bottom, $arrow-size, $color-F0, $color-A8);
 
+	// TODO: Not working in shadow DOM
 	&.hasFooter {
 		//Footer arrow color:
 		@include arrow(bottom, $arrow-size, $color-A12, $color-A8);

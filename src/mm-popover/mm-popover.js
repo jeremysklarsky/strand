@@ -7,14 +7,18 @@
 Polymer({
 	is: 'mm-popover',
 
+	behaviors: [
+		StrandTraits.AutoClosable,
+		StrandTraits.AutoTogglable,
+		StrandTraits.Stackable,
+		StrandTraits.PositionableTip
+	],
+
 	ready: function() {
 		var hasFooter = Polymer.dom(this.$.footer).getDistributedNodes().length > 0;
 		if(hasFooter) {
 			this.classList.add('hasFooter');
 		}
-	},
+	}
 
-	behaviors: [
-		StrandTraits.PositionableTip
-	]
 });
