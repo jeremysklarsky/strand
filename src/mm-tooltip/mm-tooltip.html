@@ -10,11 +10,9 @@
 <dom-module id="mm-tooltip">
 	<link rel="import" type="css" href="mm-tooltip.css"/>
 	<template>
-		<!-- TODO: Shared panel or per instance!? -->
-		<mm-tooltip-panel id="panel" target="{{target}}" scope="{{scope}}" state="{{state}}" direction="{{direction}}" offset="{{offset}}">
+		<mm-tooltip-panel id="panel" target="{{target}}" scope="{{scope}}" state="{{state}}" direction="{{direction}}" offset="{{offset}}" auto-close="{{autoClose}}">
 			<content select="label"></content>
 		</mm-tooltip-panel>
-		<!-- <content select="template"></content> -->
 		<div id="target" on-mouseover="overHandler" on-mouseout="outHandler">
 			<content select="*"></content>
 		</div>

@@ -6,15 +6,32 @@
 		behaviors: [
 			StrandTraits.AutoClosable,
 			StrandTraits.Stackable,
-			StrandTraits.PositionableTip
+			StrandTraits.PositionableTip,
+			StrandTraits.Stylable
 		],
 
 		properties: {
-			
+			CLOSE_ICON_COLOR: {
+				type: String,
+				value: Colors.A4
+			},
+			CLOSE_ICON_HOVER: {
+				type: String,
+				value: Colors.F0
+			}
 		},
 
-		ready: function(){
-			console.log("mm-tooltip-panel :: ready");
+		_updateClass: function(autoClose) {
+			var o = {};
+			o.auto = !autoClose;
+			return this.classBlock(o);
+		},
+
+		_closeFilter: function(instance, e, original) {
+			var closeIcon = instance.$$(".close-icon");
+			if(e.path.indexOf(closeIcon) > -1){
+				instance.close();
+			}
 		}
 
 	});

@@ -5,14 +5,17 @@
 
 -->
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../mm-icon/mm-icon.html">
 <link rel="import" href="../shared/behaviors/autoclosable.html">
 <link rel="import" href="../shared/behaviors/stackable.html">
+<link rel="import" href="../shared/behaviors/stylable.html">
 <link rel="import" href="../shared/behaviors/positionable-tip.html"/>
 <dom-module id="mm-tooltip-panel">
 	<link rel="import" type="css" href="mm-tooltip-panel.css"/>
 	<template>
-		<div id="container" style$="{{_containerStyle}}">
+		<div id="container" class$="{{_updateClass(autoClose)}}" style$="{{_containerStyle}}">
 			<content></content>
+			<template is="dom-if" if="{{!autoClose}}"><mm-icon type="delete" class="close-icon" width="8" height="8" primary-color="[[CLOSE_ICON_COLOR]]" hover-color="[[CLOSE_ICON_HOVER]]"></mm-icon></template>
 		</div>
 	</template>
 </dom-module>
