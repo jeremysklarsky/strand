@@ -47,7 +47,7 @@
 		},
 
 		_closeFilter: function(instance, e, original) {
-			if(!this.auto) return;
+			if(!instance.auto) return;
 			if(e.path.indexOf(instance) > -1 || e.path.indexOf(instance.target) > -1){
 				original.stopImmediatePropagation();
 			} else {
