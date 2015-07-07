@@ -5,7 +5,7 @@
 
 		properties: {
 			target: {
-				value: Object,
+				type: Object,
 				value: function() { return this.$.target; }
 			},
 			scope: {
@@ -26,17 +26,10 @@
 			}
 		},
 
-		open: function() {
-			this.state = "opened";
-		},
+		behaviors: [
+			StrandTraits.AutoClosable,
+		],
 
-		close: function() {
-			this.state = "closed";
-		},
-
-		toggle: function(e) {
-			this.state = (this.state === "closed") ? "opened" : "closed" ;
-		}
 	});
 
 })(window.Strand = window.Strand || {});

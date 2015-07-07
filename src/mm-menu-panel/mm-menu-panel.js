@@ -4,7 +4,7 @@
 		is: 'mm-menu-panel',
 
 		behaviors: [
-			StrandTraits.AutoClosable,
+			StrandTraits.AutoTogglable,
 			StrandTraits.Stackable,
 			StrandTraits.PositionableTip
 		],

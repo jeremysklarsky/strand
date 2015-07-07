@@ -93,7 +93,7 @@
 				<span class="bold">Menu:</span> Layout Default
 				<mm-menu direction="s" offset="5" id="testMenu">
 					<mm-icon type="actions" width="15" height="15"></mm-icon>
-					<mm-list-item value="m1">menu item 1</mm-list-item>
+					<mm-list-item id="test" value="m1">menu item 1</mm-list-item>
 					<mm-list-item value="m2">menu item 2</mm-list-item>
 					<mm-list-item value="m3">menu item 3</mm-list-item>
 					<mm-list-item value="m4">menu item 4</mm-list-item>
@@ -107,6 +107,10 @@
 			var tm;
 			window.addEventListener("WebComponentsReady", function(e) {
 				tm = document.getElementById("testMenu");
+
+				document.getElementById("test").addEventListener('click', function() {
+					console.log('it works!!');
+				});
 
 				tm.addEventListener("selected", function(e) {
 					console.log("selected: ", e.detail);
