@@ -39,8 +39,8 @@
 		attached: function() {
 			this.async(function() {
 				if (this.target) {
-					this.target.addEventListener('mouseover', this.overHandler.bind(this));
-					this.target.addEventListener('mouseout', this.outHandler.bind(this));
+					this.target.addEventListener('mouseover', this._overHandler.bind(this));
+					this.target.addEventListener('mouseout', this._outHandler.bind(this));
 					this.target.style.cursor = 'pointer';
 				}
 			});
@@ -48,8 +48,8 @@
 
 		removed: function() {
 			if (this.target) {
-				this.target.removeEventListener('mouseover', this.overHandler.bind(this));
-				this.target.removeEventListener('mouseout', this.outHandler.bind(this));
+				this.target.removeEventListener('mouseover', this._overHandler.bind(this));
+				this.target.removeEventListener('mouseout', this._outHandler.bind(this));
 				this.target.style.cursor = 'default';
 			}
 		},
@@ -62,11 +62,11 @@
 			this.state = this.STATE_CLOSED;
 		},
 
-		overHandler: function(e) {
+		_overHandler: function(e) {
 			this.open();
 		},
 
-		outHandler: function(e) {
+		_outHandler: function(e) {
 			if(!this.auto) {
 				this.close();
 			}
