@@ -3,11 +3,11 @@
   <head>
 	<script language="javascript" src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
 	<link rel="import" href="../shared/js/colors.html"/>
-    <link rel="import" href="mm-menu.html">
-    <link rel="import" href="../mm-button/mm-button.html">
-    <link rel="import" href="../mm-list-item/mm-list-item.html">
-    <link rel="import" href="../mm-icon/mm-icon.html">
-    <style type="text/css">
+	<link rel="import" href="../mm-button/mm-button.html">
+	<link rel="import" href="../mm-list-item/mm-list-item.html">
+	<link rel="import" href="../mm-icon/mm-icon.html">
+	<link rel="import" href="mm-menu-alt.html">
+	<style type="text/css">
 			body, html {
 				height: 100%;
 				min-height: 100%;
@@ -93,7 +93,7 @@
 			<p>
 				<span class="bold">Menu:</span> Button Target
 				<mm-button id="cpb"><label>Open Menu</label></mm-button>
-				<mm-menu id="testMenu" direction="s" offset="5" target="#cpb">
+				<mm-menu-alt id="testMenu" direction="s" offset="5" target="#cpb">
 					<mm-list-item value="m1"><mm-icon width="15" height="15" type="info"></mm-icon> menu item 1</mm-list-item>
 					<mm-list-item value="m2">menu item 2</mm-list-item>
 					<mm-list-item value="m3">menu item 3</mm-list-item>
@@ -105,7 +105,7 @@
 			<p>
 				<span class="bold">Menu:</span> Icon Target
 				<mm-icon type="actions" id="cpb2"></mm-icon>
-				<mm-menu id="testMenu" direction="e" offset="15" target="#cpb2">
+				<mm-menu-alt id="testMenu" direction="e" offset="15" target="#cpb2">
 					<mm-list-item value="m1">menu item 1</mm-list-item>
 					<mm-list-item value="m2">menu item 2</mm-list-item>
 					<mm-list-item value="m3">menu item 3</mm-list-item>
