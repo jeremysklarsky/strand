@@ -36,8 +36,12 @@
 		},
 
 		_triggerChanged: function(trigger, oldTrigger) {
+			var scope = this.scope || document;
+
 			if(typeof trigger === 'string') {
-				this.toggleTrigger = document.querySelector(trigger);
+				// this.toggleTrigger = document.querySelector(trigger);
+				this.toggleTrigger = scope === document ? 
+				document.querySelector(trigger) : Polymer.dom(scope).querySelector(trigger);
 			}
 
 			this._removeListener(oldTrigger);

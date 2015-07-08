@@ -11,13 +11,14 @@
 	Positionable = {
 
 		properties: {
-			target: {
-				type: Object,
-				observer: '_targetChanged'
-			},
 			scope: {
 				type: Object,
 				value: function() { return document; } // assumes the scope will be the document if not specified
+			},
+			target: {
+				type: Object,
+				value: null,
+				observer: '_targetChanged'
 			},
 			state: {
 				type: String,
@@ -72,8 +73,8 @@
 
 		_targetChanged: function(target, oldTarget) {
 			if(typeof target === 'string') {
-				// this.target = document.querySelector(target);
-				this.target = Polymer.dom(this.scope).querySelector(target);
+				this.target = this.scope === document ? 
+				document.querySelector(target) : Polymer.dom(this.scope).querySelector(target);
 			}
 		},
 

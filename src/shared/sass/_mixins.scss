@@ -82,7 +82,7 @@
 			}
 
 			&:before {
-				#{$direction}: 0;
+				#{$direction}: 0px;
 				border-#{get-item($directions, $i, 2)}: $size solid $strokeColor;
 			}
 
