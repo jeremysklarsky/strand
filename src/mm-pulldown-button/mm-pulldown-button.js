@@ -4,86 +4,141 @@
  * This code may only be used under the BSD style license found at http://mediamath.github.io/strand/LICENSE.txt
 
 */
-Polymer('mm-pulldown-button', {
-	
-	ver:"<<version>>",
-	state: 'closed',	// valid values: closed, opened
-	overflow: 'hidden', // button width takes precedence by label
-	STATE_OPENED: "opened",
-	STATE_CLOSED: "closed",
-	PRIMARY_ICON_COLOR: Colors.D0,
-	SECONDARY_ICON_COLOR: Colors.A2,
+(function(scope) {
 
-	publish: {
-		disabled: { value: false, reflect: true },
-		fitparent: { value: false, reflect: true },
-		error: false
-	},
-	
-	domReady: function() {
-		// set icon layout default - is there an icon?
-		var iconColor = (this.type !== "primary") ? this.SECONDARY_ICON_COLOR : this.PRIMARY_ICON_COLOR;
+	var Rectangle = StrandLib.Rectangle;
 
-		if (this.icon.length) {
-			this.icon[0].primaryColor = iconColor;
-		}
+	scope.PulldownButton = Polymer({
 
-		this.$.caratIcon.primaryColor = iconColor;
-		this.async(this.btnWidthChanged);
-	},
+		is: 'mm-pulldown-button',
 
-	attached: function() {
-		WindowNotifier.addInstance(this);
-	},
+		properties: {
+			target: {
+				type: Object,
+				value: function() { return this.$.target; }
+			},
+			scope: {
+				type: Object,
+				value: function() { return this; }
+			},
+			state: {
+				type: String,
+				value: "closed",
+			},
+			overflow: {
+				type: String,
+				value: "hidden"
+			},	
+			type: {
+				type: String,
+				value: "primary"
+			},
+			direction: {
+				type: String,
+				value: "s",
+			},
+			disabled: {
+				type: Boolean,
+				value: false,
+			},
+			error: {
+				type: Boolean,
+				value: false,
+			},
+			fitparent: {
+				type: Boolean,
+				value: false
+			},
+			layout: String,
+		},
 
-	detached: function() {
-		WindowNotifier.removeInstance(this);
-	},
+		behaviors: [
+			StrandTraits.AutoClosable,
+			StrandTraits.Stylable,
+		],
 
-	resize: function() {
-		this.job("resize", this.btnWidthChanged, 0);
-	},
+		_updateButtonClass: function(direction, fitparent, error, state, type) {
+			console.log(direction);
+			var o = {};
+			o["button"] = true;
+			o["fit"] = fitparent;
+			o["invalid"] = error;
+			o[type] = true;
+			o[state] = true;
+			o["top"] = (direction === 'n');
+			o["bottom"] = (direction === 's');
+			return this.classBlock(o);
+		},
 
-	btnWidthChanged: function() {
-		if (this.overflow === "visible") {
-			this.$.closePanel.style.width = "auto";
-			this.$.closePanel.style.minWidth = this.btnWidth + "px";
-		} else {
-			this.$.closePanel.style.width = this.btnWidth + "px";
-		}
-	},
+		// PRIMARY_ICON_COLOR: Colors.D0,
+		// SECONDARY_ICON_COLOR: Colors.A2,
+		
+		// domReady: function() {
+		// 	// set icon layout default - is there an icon?
+		// 	var iconColor = (this.type !== "primary") ? this.SECONDARY_ICON_COLOR : this.PRIMARY_ICON_COLOR;
 
-	get btnWidth() {
-		if (this.$)
-		return parseFloat(getComputedStyle(this.$.buttonMain).width);
-	},
+		// 	if (this.icon.length) {
+		// 		this.icon[0].primaryColor = iconColor;
+		// 	}
 
-	get icon() {
-		var icon = Array.prototype.slice.call(this.$.icon.getDistributedNodes());
-		return icon.filter(function(item) { return item.nodeName !== "TEMPLATE"; });
-	},
+		// 	this.$.caratIcon.primaryColor = iconColor;
+		// 	this.async(this.btnWidthChanged);
+		// },
 
-	open: function(e) {
-		this.state = this.STATE_OPENED;
-	},
+		// attached: function() {
+		// 	WindowNotifier.addInstance(this);
+		// },
 
-	close: function(e) {
-		this.state = this.STATE_CLOSED;
-	},
+		// detached: function() {
+		// 	WindowNotifier.removeInstance(this);
+		// },
 
-	toggle: function(e) {
-		if (this.state === this.STATE_OPENED) {
-			this.state = this.STATE_CLOSED;
-		} else {
-			this.state = this.STATE_OPENED;
-		}
-	},
+		// resize: function() {
+		// 	this.job("resize", this.btnWidthChanged, 0);
+		// },
 
-	closeFilter: function(instance, event) {
-		if (event.target === this || event.target === this.$.buttonMain) {
-			event.preventDefault();
-		} else {
-			instance.fire('close');
-		}
-	}
-});
+		// btnWidthChanged: function() {
+		// 	if (this.overflow === "visible") {
+		// 		this.$.closePanel.style.width = "auto";
+		// 		this.$.closePanel.style.minWidth = this.btnWidth + "px";
+		// 	} else {
+		// 		this.$.closePanel.style.width = this.btnWidth + "px";
+		// 	}
+		// },
+
+		// get btnWidth() {
+		// 	if (this.$)
+		// 	return parseFloat(getComputedStyle(this.$.buttonMain).width);
+		// },
+
+		// get icon() {
+		// 	var icon = Array.prototype.slice.call(this.$.icon.getDistributedNodes());
+		// 	return icon.filter(function(item) { return item.nodeName !== "TEMPLATE"; });
+		// },
+
+		// open: function(e) {
+		// 	this.state = this.STATE_OPENED;
+		// },
+
+		// close: function(e) {
+		// 	this.state = this.STATE_CLOSED;
+		// },
+
+		// toggle: function(e) {
+		// 	if (this.state === this.STATE_OPENED) {
+		// 		this.state = this.STATE_CLOSED;
+		// 	} else {
+		// 		this.state = this.STATE_OPENED;
+		// 	}
+		// },
+
+		// closeFilter: function(instance, event) {
+		// 	if (event.target === this || event.target === this.$.buttonMain) {
+		// 		event.preventDefault();
+		// 	} else {
+		// 		instance.fire('close');
+		// 	}
+		// }
+	});
+
+})(window.Strand = window.Strand || {});

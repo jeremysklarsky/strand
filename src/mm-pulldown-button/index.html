@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<script language="javascript" src="../../bower_components/webcomponentsjs/webcomponents.js"></script>
-		<link rel="import" href="../mm-list/mm-list.html">
+		<script language="javascript" src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+		<!-- <link rel="import" href="../mm-list/mm-list.html"> -->
 		<link rel="import" href="../mm-list-item/mm-list-item.html">
 		<link rel="import" href="mm-pulldown-button.html">
 		<style type="text/css">
@@ -74,31 +74,21 @@
 				display: block;
 				float: left;
 			}
-
-			mm-pulldown-button[unresolved] {
-				/*opacity: 0;*/
-				display: none;
-			}
-
-			mm-pulldown-button {
-				/*opacity: 1;
-				transition: opacity 1s;*/
-			}
 		</style>
 	</head>
 	<body>
 		<div class="col c1">
 			<p><span class="bold">Primary:</span> Default</p>
-			<mm-pulldown-button type="primary" unresolved>
+			<mm-pulldown-button type="primary">
 				<mm-list-item>single 3PAS</mm-list-item>
 				<mm-list-item>bulk 3PAS</mm-list-item>
 				<mm-list-item>Upload Assets</mm-list-item>
-				<mm-icon type="plus" width="12" height="12" shapeRendering="auto" optimize="true"></mm-icon>
+				<mm-icon type="plus" width="12" height="12"></mm-icon>
 				<label>Add Creative</label>
 			</mm-pulldown-button>
 			<hr/>
 			<p><span class="bold">Secondary:</span> Default</p>
-			<mm-pulldown-button type="secondary" unresolved>
+			<mm-pulldown-button type="secondary">
 				<mm-list-item>single 3PAS</mm-list-item>
 				<mm-list-item>bulk 3PAS</mm-list-item>
 				<mm-list-item>Upload Assets</mm-list-item>
@@ -106,16 +96,16 @@
 			</mm-pulldown-button>
 			<hr/>
 			<p><span class="bold">Primary:</span> Default fit to parent</p>
-			<mm-pulldown-button type="primary" fitparent unresolved>
+			<mm-pulldown-button type="primary" fitparent>
 				<mm-list-item>single 3PAS</mm-list-item>
 				<mm-list-item>bulk 3PAS</mm-list-item>
 				<mm-list-item>Upload Assets</mm-list-item>
-				<mm-icon type="plus" width="12" height="12" shapeRendering="auto" optimize="true"></mm-icon>
+				<mm-icon type="plus" width="12" height="12"></mm-icon>
 				<label>Add Creative</label>
 			</mm-pulldown-button>
 			<hr/>
 			<p><span class="bold">Secondary:</span> Default fit to parent</p>
-			<mm-pulldown-button type="secondary" fitparent unresolved>
+			<mm-pulldown-button type="secondary" fitparent>
 				<mm-list-item>single 3PAS</mm-list-item>
 				<mm-list-item>bulk 3PAS</mm-list-item>
 				<mm-list-item>Upload Assets</mm-list-item>
@@ -126,8 +116,8 @@
 		<div class="vr"></div>
 		<div class="col c1">
 			<p><span class="bold">Primary:</span> Truncated List Items</p>
-			<mm-pulldown-button type="primary" unresolved>
-				<mm-icon type="plus" width="12" height="12" shapeRendering="auto" optimize="true"></mm-icon>
+			<mm-pulldown-button type="primary">
+				<mm-icon type="plus" width="12" height="12"></mm-icon>
 				<label>Choose Action</label>
 				<mm-list-item>mm-list-item 01 long name</mm-list-item>
 				<mm-list-item>mm-list-item 02 long name</mm-list-item>
@@ -136,7 +126,7 @@
 			</mm-pulldown-button>
 			<hr/>
 			<p><span class="bold">Secondary:</span> Truncated List Items</p>
-			<mm-pulldown-button type="secondary" unresolved>
+			<mm-pulldown-button type="secondary">
 				<label>Choose Action</label>
 				<mm-list-item>mm-list-item 01 long name</mm-list-item>
 				<mm-list-item>mm-list-item 02 long name</mm-list-item>
@@ -144,21 +134,38 @@
 				<mm-list-item>mm-list-item 04 long name</mm-list-item>
 			</mm-pulldown-button>
 			<hr/>
+			<p><span class="bold">Primary:</span> Default fit to parent</p>
+			<mm-pulldown-button type="primary" fitparent>
+				<mm-list-item>single 3PAS</mm-list-item>
+				<mm-list-item>bulk 3PAS</mm-list-item>
+				<mm-list-item>Upload Assets</mm-list-item>
+				<mm-icon type="plus" width="12" height="12"></mm-icon>
+				<label>Add Creative</label>
+			</mm-pulldown-button>
+			<hr/>
+			<p><span class="bold">Secondary:</span> Default fit to parent</p>
+			<mm-pulldown-button type="secondary" fitparent>
+				<mm-list-item>single 3PAS</mm-list-item>
+				<mm-list-item>bulk 3PAS</mm-list-item>
+				<mm-list-item>Upload Assets</mm-list-item>
+				<label>Add Creative</label>
+			</mm-pulldown-button>
+			<hr/>
 		</div>
 		<div class="vr"></div>
 		<div class="col c1">
 			<p><span class="bold">Primary:</span> With overflow: visible</p>
-			<mm-pulldown-button type="primary" overflow="visible" unresolved>
+			<mm-pulldown-button type="primary" overflow="visible">
 				<mm-list-item>mm-list-item with an exremely long label or name in here 01</mm-list-item>
 				<mm-list-item>mm-list-item with an exremely long label or name in here 02</mm-list-item>
 				<mm-list-item>mm-list-item with an exremely long label or name in here 03</mm-list-item>
 				<mm-list-item>mm-list-item with an exremely long label or name in here 04</mm-list-item>
-				<mm-icon type="geo-map" width="14" height="14" shapeRendering="auto" optimize="true"></mm-icon>
+				<mm-icon type="geo-map" width="14" height="14"></mm-icon>
 				<label>arbitrary label here</label>
 			</mm-pulldown-button>
 			<hr/>
 			<p><span class="bold">Secondary:</span> With overflow: visible</p>
-			<mm-pulldown-button type="secondary" overflow="visible" unresolved>
+			<mm-pulldown-button type="secondary" overflow="visible">
 				<mm-list-item>mm-list-item with an exremely long label or name in here 01</mm-list-item>
 				<mm-list-item>mm-list-item with an exremely long label or name in here 02</mm-list-item>
 				<mm-list-item>mm-list-item with an exremely long label or name in here 03</mm-list-item>
