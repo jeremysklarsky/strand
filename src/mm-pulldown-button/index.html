@@ -3,7 +3,9 @@
 	<head>
 		<script language="javascript" src="../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
 		<!-- <link rel="import" href="../mm-list/mm-list.html"> -->
+		<link rel="import" href="../mm-input/mm-input.html">
 		<link rel="import" href="../mm-list-item/mm-list-item.html">
+		<link rel="import" href="../mm-panel-layer/mm-panel-layer.html">
 		<link rel="import" href="mm-pulldown-button.html">
 		<style type="text/css">
 			body, html {
@@ -77,7 +79,22 @@
 		</style>
 	</head>
 	<body>
-		<div class="col c1">
+		<mm-panel-layer id="pl"></mm-panel-layer>
+		<!-- <div class="col c1"> -->
+
+		<div style="transform: translate3d(100px,200px,0)">
+		<mm-pulldown-button>
+			<label>Test</label>
+			<template id="panelTmpl" is="dom-template">
+				<mm-list-item>First</mm-list-item>
+				<mm-list-item>Second</mm-list-item>
+				<mm-list-item>Third</mm-list-item>
+				<mm-list-item>Fourth</mm-list-item>
+			</template>
+		</mm-pulldown-button>
+		</div>
+<!-- 		<hr>
+
 			<p><span class="bold">Primary:</span> Default</p>
 			<mm-pulldown-button type="primary">
 				<mm-list-item>single 3PAS</mm-list-item>
@@ -114,7 +131,7 @@
 			<hr/>
 		</div>
 		<div class="vr"></div>
-		<div class="col c1">
+		<div class="col c1" style="transform: translate3d(0,0,0);">
 			<p><span class="bold">Primary:</span> Truncated List Items</p>
 			<mm-pulldown-button type="primary">
 				<mm-icon type="plus" width="12" height="12"></mm-icon>
@@ -166,6 +183,7 @@
 			<hr/>
 			<p><span class="bold">Secondary:</span> With overflow: visible</p>
 			<mm-pulldown-button type="secondary" overflow="visible">
+				<mm-input layout="dropdown"></mm-input>
 				<mm-list-item>mm-list-item with an exremely long label or name in here 01</mm-list-item>
 				<mm-list-item>mm-list-item with an exremely long label or name in here 02</mm-list-item>
 				<mm-list-item>mm-list-item with an exremely long label or name in here 03</mm-list-item>
@@ -173,6 +191,32 @@
 				<label>arbitrary label here</label>
 			</mm-pulldown-button>
 			<hr/>
+			<p><span class="bold">Inside overflow:auto</span></p>
+			<div style="height: 100px; overflow: auto;">
+			<div style="height: 1000px;"></div>
+			<mm-pulldown-button type="primary" overflow="visible">
+				<mm-list-item>mm-list-item with an exremely long label or name in here 01</mm-list-item>
+				<mm-list-item>mm-list-item with an exremely long label or name in here 02</mm-list-item>
+				<mm-list-item>mm-list-item with an exremely long label or name in here 03</mm-list-item>
+				<mm-list-item>mm-list-item with an exremely long label or name in here 04</mm-list-item>
+				<mm-icon type="geo-map" width="14" height="14"></mm-icon>
+				<label>arbitrary label here</label>
+			</mm-pulldown-button>
+			<div style="height: 1000px;"></div>
+			</div>
+			<hr/> -->
+
+			<script>
+				var pl = document.getElementById('pl');
+				document.addEventListener('panel-open', function(e) {
+					console.log('panel open');
+					pl.open(e.detail.context,e.detail.template);
+				});
+				document.addEventListener('panel-close', function(e) {
+					console.log('panel close');
+					pl.close(e.detail.context,e.detail.template);
+				})
+			</script>
 		</div>
 	</body>
 </html>

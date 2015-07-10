@@ -21,44 +21,21 @@
 				type: Object,
 				value: function() { return this; }
 			},
-			state: {
-				type: String,
-				value: "closed",
-			},
-			overflow: {
-				type: String,
-				value: "hidden"
-			},	
-			type: {
-				type: String,
-				value: "primary"
-			},
-			direction: {
-				type: String,
-				value: "s",
-			},
-			disabled: {
-				type: Boolean,
-				value: false,
-			},
-			error: {
-				type: Boolean,
-				value: false,
-			},
-			fitparent: {
-				type: Boolean,
-				value: false
-			},
-			layout: String,
 		},
 
 		behaviors: [
-			StrandTraits.AutoClosable,
+			StrandTraits.AutoTogglable,
+			StrandTraits.Dropdownable,
 			StrandTraits.Stylable,
 		],
 
+		ready: function() {
+			if(!this.toggleTrigger) {
+				this.toggleTrigger = this.target;
+			}
+		},
+
 		_updateButtonClass: function(direction, fitparent, error, state, type) {
-			console.log(direction);
 			var o = {};
 			o["button"] = true;
 			o["fit"] = fitparent;
@@ -70,75 +47,19 @@
 			return this.classBlock(o);
 		},
 
-		// PRIMARY_ICON_COLOR: Colors.D0,
-		// SECONDARY_ICON_COLOR: Colors.A2,
-		
-		// domReady: function() {
-		// 	// set icon layout default - is there an icon?
-		// 	var iconColor = (this.type !== "primary") ? this.SECONDARY_ICON_COLOR : this.PRIMARY_ICON_COLOR;
+		open: function(silent) {
+	 		this.state = this.STATE_OPENED;
+	 		// !silent && this.fire("open");
+	 		var x = this.querySelector('#panelTmpl');
+	 		this.fire('panel-open', {context:this,template:x}, {node: document.body});
+	 	},
 
-		// 	if (this.icon.length) {
-		// 		this.icon[0].primaryColor = iconColor;
-		// 	}
-
-		// 	this.$.caratIcon.primaryColor = iconColor;
-		// 	this.async(this.btnWidthChanged);
-		// },
-
-		// attached: function() {
-		// 	WindowNotifier.addInstance(this);
-		// },
-
-		// detached: function() {
-		// 	WindowNotifier.removeInstance(this);
-		// },
-
-		// resize: function() {
-		// 	this.job("resize", this.btnWidthChanged, 0);
-		// },
-
-		// btnWidthChanged: function() {
-		// 	if (this.overflow === "visible") {
-		// 		this.$.closePanel.style.width = "auto";
-		// 		this.$.closePanel.style.minWidth = this.btnWidth + "px";
-		// 	} else {
-		// 		this.$.closePanel.style.width = this.btnWidth + "px";
-		// 	}
-		// },
-
-		// get btnWidth() {
-		// 	if (this.$)
-		// 	return parseFloat(getComputedStyle(this.$.buttonMain).width);
-		// },
-
-		// get icon() {
-		// 	var icon = Array.prototype.slice.call(this.$.icon.getDistributedNodes());
-		// 	return icon.filter(function(item) { return item.nodeName !== "TEMPLATE"; });
-		// },
-
-		// open: function(e) {
-		// 	this.state = this.STATE_OPENED;
-		// },
-
-		// close: function(e) {
-		// 	this.state = this.STATE_CLOSED;
-		// },
-
-		// toggle: function(e) {
-		// 	if (this.state === this.STATE_OPENED) {
-		// 		this.state = this.STATE_CLOSED;
-		// 	} else {
-		// 		this.state = this.STATE_OPENED;
-		// 	}
-		// },
-
-		// closeFilter: function(instance, event) {
-		// 	if (event.target === this || event.target === this.$.buttonMain) {
-		// 		event.preventDefault();
-		// 	} else {
-		// 		instance.fire('close');
-		// 	}
-		// }
+	 	close: function(silent) {
+	 		this.state = this.STATE_CLOSED;
+	 		// !silent && this.fire("close");
+	 		var x = this.querySelector('#panelTmpl');
+	 		this.fire('panel-close', {context:this,template:x}, {node: document.body});
+	 	},
 	});
 
 })(window.Strand = window.Strand || {});

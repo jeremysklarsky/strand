@@ -16,6 +16,7 @@ $border-color: $color-A18 !default;
 :host {
 	position: fixed;
 	display: block;
+	z-index: 1;
 }
 
 #container {

@@ -12,10 +12,28 @@
 <link rel="import" href="../mm-close-panel/mm-close-panel.html"/>
 <link rel="import" href="../mm-list-item/mm-list-item.html"/>
 <link rel="import" href="../mm-item-recycler/mm-item-recycler.html"/>
+
+<link rel="import" href="../shared/behaviors/dropdownable.html"/>
+<link rel="import" href="../mm-pulldown-panel/mm-pulldown-panel.html"/>
+
 <link rel="import" href="../shared/js/measure.html"/>
-<polymer-element name="mm-dropdown" constructor="MMDropdown">
+<dom-module id="mm-dropdown">
+	<link href="mm-dropdown.css" rel="import" type="css"/>
 	<template>
-		<link href="mm-dropdown.css" rel="stylesheet" type="text/css"/>
+		<div class$="{{_updateButtonClass(direction, fitparent,error,state,type)}}" id="target">
+			<span class="left-items">
+				<content select="mm-icon" id="icon"></content>
+				<content select="label" id="label"></content>
+			</span>
+			<mm-icon id="caratIcon" class="{{state}}" type="carat" width="8" height="8"></mm-icon>
+		</div>
+
+		<mm-pulldown-panel id="panel" target="{{target}}" scope="{{scope}}" state="{{state}}" direction="{{direction}}" offset="0" overflow="{{overflow}}" boundary-offset="0">
+			<content></content>
+		</mm-pulldown-panel>
+	</template>
+	<!--
+	<template>
 		<div class="button secondary {{state}} {{ { bottom:$.closePanel.calcValign == 'BOTTOM', top:$.closePanel.calcValign == 'TOP', fit:fitparent!=null, invalid:error == true } | tokenList }}" id="buttonMain" on-mousedown="{{toggle}}" title="{{displayTitle}}">
 			<div class="left-items">
 				<label id="labelText">{{selectedItem.label || placeholder}}</label>
@@ -40,5 +58,6 @@
 			</div>
 		</mm-close-panel>
 	</template>
-	<script src="mm-dropdown.js"></script>
-</polymer-element>
+	-->
+</dom-module>
+<script src="mm-dropdown.js"></script>

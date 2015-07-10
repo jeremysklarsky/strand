@@ -7,15 +7,34 @@
 			direction: {
 				notify: true,
 				type: String,
+			},
+			boundaryOffset: {
+				type: Number,
+				value: 0,
 			}
 		},
 
 		behaviors: [
+			StrandTraits.AutoClosable,
 			StrandTraits.AutoTogglable,
 			StrandTraits.Stackable,
 			StrandTraits.PositionableTip,
 			StrandTraits.Stylable,
 		],
+
+	 	open: function(silent) {
+	 		this.state = this.STATE_OPENED;
+	 		!silent && this.fire("open");
+	 		// var x = this.querySelector('#panelTmpl');
+	 		// this.fire('panel-open', {target:this.target,template:x}, {node: document.body});
+	 	},
+
+	 	close: function(silent) {
+	 		this.state = this.STATE_CLOSED;
+	 		!silent && this.fire("close");
+	 		// var x = this.querySelector('#panelTmpl');
+	 		// this.fire('panel-close', {target:this.target,template:x}, {node: document.body});
+	 	},
 
 		_containerClass: function(state,direction) {
 			var o = {};
@@ -58,8 +77,8 @@
 			// offset relative to document (?)
 			// console.log(this.scope);
 			if(this.scope === document){
-				panelRect.left -= this.targetMetrics.left - this.target.offsetLeft;
-				panelRect.top -= this.targetMetrics.top - this.target.offsetTop;	
+				panelRect.left = targetRect.left;
+				panelRect.top = targetRect.bottom;
 			}
 
 			if(this.overflow === 'hidden') { this.style.maxWidth = targetRect.width+"px"; }
@@ -75,11 +94,11 @@
 			switch(direction) {
 				case 'n':
 					panelRect.top = targetRect.top - panelRect.height - this.offset;
-					panelRect.left = targetRect.left;
+					panelRect.marginLeft = targetRect.left;
 					break;
 				case 's':
 					panelRect.top = targetRect.top + targetRect.height + this.offset;
-					panelRect.left = targetRect.left;
+					panelRect.marginLeft = targetRect.left;
 					break;
 				case 'e':
 					panelRect.top = targetRect.top;
