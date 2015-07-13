@@ -23,13 +23,10 @@
 			</span>
 			<mm-icon id="caratIcon" class$="{{state}}" type="carat" width="8" height="8"></mm-icon>
 		</div>
-		<content></content>
-	<!-- <template id="panelTmpl" is="dom-template">
-			<content></content>
-		</template> -->
-			<!-- <mm-pulldown-panel id="panel" target="{{target}}" scope="{{scope}}" state="{{state}}" direction="{{direction}}" offset="0" overflow="{{overflow}}" boundary-offset="0">
-				<content></content>
-			</mm-pulldown-panel> -->
+		<template is="dom-template" id="panelTmpl">
+			<mm-pulldown-panel id="panel" target="{{target}}" scope="{{scope}}" state="{{state}}" direction="{{direction}}" offset="0" overflow="{{overflow}}" boundary-offset="0">
+			</mm-pulldown-panel>
+		</template>
 	</template>
 </dom-module>
 <script src="mm-pulldown-button.js"></script>

@@ -82,19 +82,18 @@
 		<mm-panel-layer id="pl"></mm-panel-layer>
 		<!-- <div class="col c1"> -->
 
-		<div style="transform: translate3d(100px,200px,0)">
-		<mm-pulldown-button>
+		<!-- <div style="transform: translate3d(100px,200px,0)">
+		<mm-pulldown-button id="button">
 			<label>Test</label>
-			<template id="panelTmpl" is="dom-template">
-				<mm-list-item>First</mm-list-item>
-				<mm-list-item>Second</mm-list-item>
-				<mm-list-item>Third</mm-list-item>
-				<mm-list-item>Fourth</mm-list-item>
-			</template>
+			<mm-list-item>First</mm-list-item>
+			<mm-list-item>Second</mm-list-item>
+			<mm-list-item>Third</mm-list-item>
+			<mm-list-item>Fourth</mm-list-item>
 		</mm-pulldown-button>
-		</div>
-<!-- 		<hr>
+		</div> -->
 
+		<hr>
+		<div class="col c1" style="transform: translate3d(100px,100px,0);">
 			<p><span class="bold">Primary:</span> Default</p>
 			<mm-pulldown-button type="primary">
 				<mm-list-item>single 3PAS</mm-list-item>
@@ -204,18 +203,13 @@
 			</mm-pulldown-button>
 			<div style="height: 1000px;"></div>
 			</div>
-			<hr/> -->
+			<hr/>
 
 			<script>
 				var pl = document.getElementById('pl');
-				document.addEventListener('panel-open', function(e) {
-					console.log('panel open');
-					pl.open(e.detail.context,e.detail.template);
+				document.addEventListener('panel-add', function(e) {
+					pl.open(e.detail.context);
 				});
-				document.addEventListener('panel-close', function(e) {
-					console.log('panel close');
-					pl.close(e.detail.context,e.detail.template);
-				})
 			</script>
 		</div>
 	</body>

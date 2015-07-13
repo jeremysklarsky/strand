@@ -15,7 +15,7 @@
 		},
 
 		behaviors: [
-			StrandTraits.AutoClosable,
+			// StrandTraits.AutoClosable,
 			StrandTraits.AutoTogglable,
 			StrandTraits.Stackable,
 			StrandTraits.PositionableTip,
@@ -25,15 +25,11 @@
 	 	open: function(silent) {
 	 		this.state = this.STATE_OPENED;
 	 		!silent && this.fire("open");
-	 		// var x = this.querySelector('#panelTmpl');
-	 		// this.fire('panel-open', {target:this.target,template:x}, {node: document.body});
 	 	},
 
 	 	close: function(silent) {
 	 		this.state = this.STATE_CLOSED;
 	 		!silent && this.fire("close");
-	 		// var x = this.querySelector('#panelTmpl');
-	 		// this.fire('panel-close', {target:this.target,template:x}, {node: document.body});
 	 	},
 
 		_containerClass: function(state,direction) {
@@ -76,10 +72,12 @@
 
 			// offset relative to document (?)
 			// console.log(this.scope);
-			if(this.scope === document){
+			// if(this.scope === document){
+				// console.log("target left");
+				// console.log(targetRect.left);
 				panelRect.left = targetRect.left;
 				panelRect.top = targetRect.bottom;
-			}
+			// }
 
 			if(this.overflow === 'hidden') { this.style.maxWidth = targetRect.width+"px"; }
 			this.style.width = Math.max(targetRect.width,panelRect.width)+"px";
