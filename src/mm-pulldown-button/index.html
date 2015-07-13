@@ -78,7 +78,6 @@
 		</style>
 	</head>
 	<body>
-		<mm-panel-layer id="pl"></mm-panel-layer>
 		<!-- <div class="col c1"> -->
 
 		<!-- <div style="transform: translate3d(100px,200px,0)">
@@ -93,14 +92,17 @@
 
 		<hr>
 		<div class="col c1" style="transform: translate3d(10px,10px,0);">
-			<p><span class="bold">Primary:</span> Default</p>
-			<mm-pulldown-button type="primary">
-				<mm-list-item>single 3PAS</mm-list-item>
-				<mm-list-item>bulk 3PAS</mm-list-item>
-				<mm-list-item>Upload Assets</mm-list-item>
-				<mm-icon type="plus" width="12" height="12"></mm-icon>
-				<label>Add Creative</label>
-			</mm-pulldown-button>
+			<template is="dom-bind">
+				<mm-input value="{{value}}"></mm-input>
+				<p><span class="bold">Primary:</span> Default</p>
+				<mm-pulldown-button type="primary">
+					<mm-list-item id="test">{{value}}</mm-list-item>
+					<mm-list-item>bulk 3PAS</mm-list-item>
+					<mm-list-item>Upload Assets</mm-list-item>
+					<mm-icon type="plus" width="12" height="12"></mm-icon>
+					<label>Add Creative</label>
+				</mm-pulldown-button>
+			</template>
 			<hr/>
 			<p><span class="bold">Secondary:</span> Default</p>
 			<mm-pulldown-button type="secondary">
@@ -190,8 +192,7 @@
 			</mm-pulldown-button>
 			<hr/>
 			<p><span class="bold">Inside overflow:auto</span></p>
-			<div style="height: 100px; overflow: auto;">
-			<div style="height: 1000px;"></div>
+			<div style="height: 50px; overflow: hidden;">
 			<mm-pulldown-button type="primary" overflow="visible">
 				<mm-list-item>mm-list-item with an exremely long label or name in here 01</mm-list-item>
 				<mm-list-item>mm-list-item with an exremely long label or name in here 02</mm-list-item>
@@ -205,9 +206,11 @@
 			<hr/>
 
 			<script>
-				var pl = document.getElementById('pl');
-				document.addEventListener('panel-add', function(e) {
-					pl.open(e.detail.context);
+				document.addEventListener('WebComponentsReady', function() {
+					var tst = document.getElementById('test');
+					tst.addEventListener('click', function() {
+						alert('you clicked me');
+					});
 				});
 			</script>
 		</div>

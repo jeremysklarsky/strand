@@ -7,10 +7,11 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html"/>
 <link rel="import" href="../shared/fonts/fonts.html"/>
 <link rel="import" href="../shared/js/colors.html"/>
+<link rel="import" href="../shared/behaviors/autoclosable.html">
 <link rel="import" href="../shared/behaviors/autotogglable.html">
-<link rel="import" href="../shared/behaviors/dropdownable.html">
 <link rel="import" href="../shared/behaviors/stylable.html">
 <link rel="import" href="../mm-icon/mm-icon.html"/>
+<link rel="import" href="../mm-panel-layer/mm-panel-layer.html"/>
 <link rel="import" href="../mm-pulldown-panel/mm-pulldown-panel.html"/>
 
 <dom-module name="mm-pulldown-button">
@@ -23,10 +24,9 @@
 			</span>
 			<mm-icon id="caratIcon" class$="{{state}}" type="carat" width="8" height="8"></mm-icon>
 		</div>
-		<template is="dom-template" id="panelTmpl">
-			<mm-pulldown-panel id="panel" target="{{target}}" scope="{{scope}}" state="{{state}}" direction="{{direction}}" offset="0" overflow="{{overflow}}" boundary-offset="0">
-			</mm-pulldown-panel>
-		</template>
+		<mm-pulldown-panel id="panel" target="{{target}}" scope="{{scope}}" state="{{state}}" direction="{{direction}}" offset="0" overflow="{{overflow}}" boundary-offset="0">
+			<content></content>
+		</mm-pulldown-panel>
 	</template>
 </dom-module>
 <script src="mm-pulldown-button.js"></script>

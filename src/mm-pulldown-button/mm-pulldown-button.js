@@ -19,17 +19,46 @@
 			},
 			panel: {
 				type: Object,
-				value: function() { return undefined; }
+				value: function() { return this.$.panel; }
 			},
 			target: {
 				type: Object,
 				value: function() { return this.$.target; }
 			},
+			state: {
+				type: String,
+				value: "closed",
+			},
+			overflow: {
+				type: String,
+				value: "hidden"
+			},
+			type: {
+				type: String,
+				value: "primary"
+			},
+			direction: {
+				type: String,
+				value: "s",
+			},
+			disabled: {
+				type: Boolean,
+				value: false,
+			},
+			error: {
+				type: Boolean,
+				value: false,
+			},
+			fitparent: {
+				type: Boolean,
+				value: false
+			},
+			layout: String,
 		},
 
 		behaviors: [
+			StrandTraits.AutoClosable,
 			StrandTraits.AutoTogglable,
-			StrandTraits.Dropdownable,
 			StrandTraits.Stylable,
 		],
 
@@ -39,19 +68,11 @@
 			}
 		},
 
-		attached: function() {
-			this.async(function() {
-				var tmpl = this.$.panelTmpl;
-				tmpl.templatize(tmpl);
-				this.distributeContent();
-				var frag = tmpl.stamp().root,
-					panel = frag.getElementById('panel');
-					items = Polymer.dom(this).children.filter(function(el) { return el.localName != 'label' && el.localName != 'mm-icon'; });
-				for(var i=0; i<items.length; i++) {
-					panel.$.container.appendChild(items[i]);
-				}
-				this.panel = panel;
-			});
+		detached: function() {
+			var pl = document.querySelector('mm-panel-layer');
+			if(pl) {
+				pl.removeChild(this.$.panel);
+			}
 		},
 
 		_updateButtonClass: function(direction, fitparent, error, state, type) {
@@ -68,7 +89,11 @@
 
 		open: function(silent) {
 			this.state = this.STATE_OPENED;
-			this.fire('panel-add', {context:this}, {node: document.body});
+			if(!this.reparented) {
+				var pl = document.querySelector('mm-panel-layer') || document.body.appendChild( document.createElement('mm-panel-layer') );
+				pl.appendChild(this.panel);
+				this.reparented = true;
+			}
 		},
 	});
 

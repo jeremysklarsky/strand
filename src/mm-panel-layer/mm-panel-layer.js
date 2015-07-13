@@ -3,19 +3,11 @@
 	scope.PanelLayer = Polymer({
 		is: 'mm-panel-layer',
 
-		properties: {
-			panels: {
-				type: Object,
-				value: function() { return new WeakMap(); }
+		flush: function() {
+			var c = this.children;
+			for (var i=0; i<c.length; i++) {
+				this.removeChild(c[i]);
 			}
-		},
-
-		open: function(context) {
-			if( !this.panels.has(context) ) {
-				var panel = context.panel;
-				this.appendChild(panel);
-				this.panels.set(context,panel);
-			} 
 		}
 	});
 

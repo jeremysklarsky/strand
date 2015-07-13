@@ -11,12 +11,11 @@
 			boundaryOffset: {
 				type: Number,
 				value: 0,
-			}
+			},
 		},
 
 		behaviors: [
-			// StrandTraits.AutoClosable,
-			StrandTraits.AutoTogglable,
+			StrandTraits.Closable,
 			StrandTraits.Stackable,
 			StrandTraits.PositionableTip,
 			StrandTraits.Stylable,
