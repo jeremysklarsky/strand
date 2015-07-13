@@ -43,9 +43,10 @@
 			this.async(function() {
 				var tmpl = this.$.panelTmpl;
 				tmpl.templatize(tmpl);
+				this.distributeContent();
 				var frag = tmpl.stamp().root,
 					panel = frag.getElementById('panel');
-					items = Polymer.dom(this).children.filter(function(el) { return el.localName === 'mm-list-item'; });
+					items = Polymer.dom(this).children.filter(function(el) { return el.localName != 'label' && el.localName != 'mm-icon'; });
 				for(var i=0; i<items.length; i++) {
 					panel.$.container.appendChild(items[i]);
 				}

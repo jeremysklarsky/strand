@@ -22,16 +22,6 @@
 			StrandTraits.Stylable,
 		],
 
-	 	open: function(silent) {
-	 		this.state = this.STATE_OPENED;
-	 		!silent && this.fire("open");
-	 	},
-
-	 	close: function(silent) {
-	 		this.state = this.STATE_CLOSED;
-	 		!silent && this.fire("close");
-	 	},
-
 		_containerClass: function(state,direction) {
 			var o = {};
 			o[direction] = true;
@@ -70,19 +60,11 @@
 				}
 			}
 
-			// offset relative to document (?)
-			// console.log(this.scope);
-			// if(this.scope === document){
-				// console.log("target left");
-				// console.log(targetRect.left);
-				panelRect.left = targetRect.left;
-				panelRect.top = targetRect.bottom;
-			// }
+			panelRect.left = targetRect.left;
+			panelRect.top = targetRect.bottom;
 
 			if(this.overflow === 'hidden') { this.style.maxWidth = targetRect.width+"px"; }
 			this.style.width = Math.max(targetRect.width,panelRect.width)+"px";
-			// this.style.top = panelRect.top;
-			// this.style.left = panelRect.left;
 
 			panelRect.toCSS(this,true);
 			// this.style.transform = 'translate3d(' + panelRect.x + 'px, ' + panelRect.y + 'px, 0)';
