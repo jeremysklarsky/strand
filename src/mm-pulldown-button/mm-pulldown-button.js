@@ -53,8 +53,15 @@
 				type: Boolean,
 				value: false
 			},
-			layout: String
+			iconColor: {
+				type: String,
+				computed: "_iconColor(type)"
+			},
+			layout: String,
 		},
+
+		PRIMARY_ICON_COLOR: Colors.D0,
+		SECONDARY_ICON_COLOR: Colors.A2,
 
 		behaviors: [
 			StrandTraits.AutoClosable,
@@ -66,6 +73,17 @@
 			if(!this.toggleTrigger) {
 				this.toggleTrigger = this.target;
 			}
+		},
+
+		attached: function() {
+			// colorize the icons
+			this.async(function(){
+				var icon = Polymer.dom(this.$.icon).getDistributedNodes();
+
+				if (icon.length > 0) {
+					icon[0].primaryColor = this.iconColor;
+				}
+			});
 		},
 
 		detached: function() {
@@ -83,6 +101,10 @@
 		close: function() {
 			this.state = this.STATE_CLOSED;
 			this.panel.close();
+		},
+
+		_iconColor: function(type) {
+			return (this.type === "primary") ? this.PRIMARY_ICON_COLOR : this.SECONDARY_ICON_COLOR;
 		},
 
 		_updateButtonClass: function(direction, fitparent, error, state, type) {
