@@ -53,7 +53,7 @@
 				type: Boolean,
 				value: false
 			},
-			layout: String,
+			layout: String
 		},
 
 		behaviors: [
