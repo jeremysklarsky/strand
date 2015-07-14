@@ -75,6 +75,16 @@
 			}
 		},
 
+		open: function() {
+			this.state = this.STATE_OPENED;
+			this.panel.open();
+		},
+
+		close: function() {
+			this.state = this.STATE_CLOSED;
+			this.panel.close();
+		},
+
 		_updateButtonClass: function(direction, fitparent, error, state, type) {
 			var o = {};
 			o["button"] = true;
@@ -85,15 +95,6 @@
 			o["top"] = (direction === 'n');
 			o["bottom"] = (direction === 's');
 			return this.classBlock(o);
-		},
-
-		open: function(silent) {
-			this.state = this.STATE_OPENED;
-			if(!this.reparented) {
-				var pl = document.querySelector('mm-panel-layer') || document.body.appendChild( document.createElement('mm-panel-layer') );
-				pl.appendChild(this.panel);
-				this.reparented = true;
-			}
 		},
 	});
 

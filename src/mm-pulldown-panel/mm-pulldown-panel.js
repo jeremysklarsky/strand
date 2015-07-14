@@ -15,10 +15,10 @@
 		},
 
 		behaviors: [
-			StrandTraits.Closable,
 			StrandTraits.Stackable,
 			StrandTraits.PositionableTip,
 			StrandTraits.Stylable,
+			StrandTraits.Reparentable,
 		],
 
 		_containerClass: function(state,direction) {
@@ -63,7 +63,7 @@
 					panelRect.marginLeft = targetRect.left;
 					break;
 			}
-		}
+		},
 
 	});
 
