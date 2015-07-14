@@ -20,7 +20,7 @@
 		},
 
 		detached: function() {
-			this._removeListener(this.trigger);
+			this._removeListener(this.toggleTrigger);
 		},
 
 		_addListener: function(trigger) {
@@ -38,14 +38,14 @@
 		_triggerChanged: function(trigger, oldTrigger) {
 			var scope = this.scope || document;
 
+			this._removeListener(oldTrigger);
+
 			if(typeof trigger === 'string') {
-				// this.toggleTrigger = document.querySelector(trigger);
 				this.toggleTrigger = scope === document ? 
 				document.querySelector(trigger) : Polymer.dom(scope).querySelector(trigger);
 			}
 
-			this._removeListener(oldTrigger);
-			this._addListener(trigger)
+			this._addListener(trigger);
 		}
 	};
 
