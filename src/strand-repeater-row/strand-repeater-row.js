@@ -87,12 +87,12 @@
 
 		_validate: function(record) {
 			var custom = DataUtils.isDef(record) && record.cId === this.model.cId;
-			var elems = Array.prototype.slice.call( Polymer.dom(this).querySelectorAll('[name],[error]') )
+			var elems = Array.prototype.slice.call( Polymer.dom(this).querySelectorAll('[name],[error]') );
 			this.errors = elems
 				.map(function(node) {
 					var name = node.getAttribute('name');
 					var message = custom ? record[name] : '';
-					var error = node.error || !!message; // validatable has set the error state, or error message is present
+					var error = !!message;
 					node.error = error;
 
 					return {
