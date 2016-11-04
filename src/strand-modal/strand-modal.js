@@ -60,6 +60,10 @@
 				this.hidden = true;
 				document.body.style.overflow = "";
 			}
+		},
+
+		detached: function(e) {
+			this.hide(e);
 		}
 	});
 
